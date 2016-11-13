@@ -67,6 +67,10 @@ for (var i = 0; i < poll_headers.length; i++) {
 var elect_votes = {"District Of Columbia":["3",[3,3,3,3,3,3,3,3,3,3],1],"Hawaii":["4",[3,3,3,3,3,3,3,3,3,3],1],"California":["55",[3,3,3,3,3,3,3,3,3,3],1],"Vermont":["3",[3,3,3,3,3,3,3,3,3,3],1],"Rhode Island":["4",[3,2,3,3,3,3,3,3,3,3],1],"New York":["29",[3,3,3,3,3,3,3,3,3,3],1],"Massachusetts":["11",[3,3,3,3,3,3,3,3,3,3],1],"Illinois":["20",[3,3,3,3,3,3,3,3,3,3],1],"Connecticut":["7",[3,3,3,3,3,3,3,3,3,3],1],"New Jersey":["14",[3,3,3,3,3,3,3,3,3,3],1],"Washington":["12",[3,3,3,3,3,3,3,3,3,3],1],"Maryland":["10",[3,3,3,3,3,3,3,3,3,3],1],"Delaware":["3",[3,2,3,3,3,3,3,3,3,3],1],"Oregon":["7",[3,2,3,3,3,3,3,3,3,3],1],"Virginia":["13",[3,1,3,1,3,3,3,2,2,2],1],"New Mexico":["5",[2,1,3,3,3,2,3,2,3,2],1],"Minnesota":["10",[2,2,3,1,3,3,3,2,2,2],1],"Wisconsin":["10",[2,1,3,1,3,3,3,1,1,2],-1],"Michigan":["16",[2,1,3,1,2,2,3,1,1,1],-1],"Maine":["2",[2,1,3,1,3,3,3,2,2,2],1],"Maine (Congressional District 1)":["1",[3,2,3,1,3,3,3,3,3,3],1],"Maine (Congressional District 2)":["1",[0,0,0,1,0,1,3,0,0,-1],-1],"Colorado":["9",[2,1,3,1,2,2,3,1,2,2],1],"Pennsylvania":["20",[2,1,3,0,2,2,3,1,1,1],-1],"New Hampshire":["4",[1,1,2,3,2,0,3,1,1,1],1],"Nevada":["6",[1,0,2,0,2,1,0,1,1,1],1],"Florida":["29",[1,0,2,0,1,1,1,0,1,1],-1],"North Carolina":["15",[1,0,1,0,0,0,0,0,1,1],-1],"Ohio":["18",[0,0,-1,0,-1,0,-1,-1,0,-1],-1],"Iowa":["6",[0,-1,-2,0,-1,-1,-3,-1,-1,-1],-1],"Utah":["6",[-1,-1,-3,-3,-2,-3,-3,-1,-1,-1],-1],"Georgia":["16",[-1,-1,-2,0,-2,-2,-3,-1,-1,-2],-1],"Arizona":["11",[-1,-1,-2,-1,-1,-2,-2,-1,-1,-1],-1],"Mississippi":["6",[-1,-3,-3,-1,-3,-3,-3,-3,-3,-3],-1],"South Carolina":["9",[-2,-2,-3,-1,-3,-2,-3,-2,-3,-3],-1],"Alaska":["3",[-2,-1,-3,-3,-2,-3,-3,-2,-3,-2],-1],"Texas":["38",[-3,-3,-3,-1,-3,-3,-3,-2,-3,-3],-1],"Missouri":["10",[-3,-3,-3,-3,-3,-3,-3,-2,-2,-3],-1],"Kansas":["6",[-3,-3,-3,-3,-3,-3,-3,-3,-3,-3],-1],"Indiana":["11",[-3,-3,-3,-3,-3,-3,-3,-2,-1,-3],-1],"Louisiana":["8",[-3,-3,-3,-3,-3,-3,-3,-3,-3,-3],-1],"Montana":["3",[-3,-3,-3,-3,-2,-3,-3,-3,-3,-3],-1],"Tennessee":["11",[-3,-3,-3,-3,-3,-3,-3,-3,-3,-3],-1],"Oklahoma":["7",[-3,-3,-3,-3,-3,-3,-3,-3,-3,-3],-1],"West Virginia":["5",[-3,-3,-3,-3,-3,-3,-3,-3,-3,-3],-1],"North Dakota":["3",[-3,-3,-3,-3,-3,-3,-3,-3,-3,-3],-1],"Alabama":["9",[-3,-3,-3,-3,-3,-3,-3,-3,-3,-3],-1],"Arkansas":["6",[-3,-3,-3,-3,-3,-3,-3,-3,-3,-3],-1],"Nebraska":["2",[-3,-3,-3,-3,-3,-3,-3,-3,-2,-3],-1],"Nebraska (Congressional District 1)":["1",[-3,-2,-3,-3,-3,-3,-3,-3,-3,-3],-1],"Nebraska (Congressional District 2)":["1",[-1,0,0,-3,-1,-2,-3,0,0,-1],-1],"Nebraska (Congressional District 3)":["1",[-3,-3,-3,-3,-3,-3,-3,-3,-3,-3],-1],"South Dakota":["3",[-3,-2,-3,-3,-3,-3,-3,-3,-3,-3],-1],"Idaho":["4",[-3,-3,-3,-3,-3,-3,-3,-3,-3,-3],-1],"Kentucky":["8",[-3,-3,-3,-3,-3,-3,-3,-3,-3,-3],-1],"Wyoming":["3",[-3,-3,-3,-3,-3,-3,-3,-3,-3,-3],-1]};
 var actual_texts = {"District Of Columbia":[">99% Dem.",">99% Dem.",">99% Dem.","Strong Dem.",">99% Dem.",">99% Dem.",">99% Dem.","Solid Dem.","Solid Dem.","Solid Dem."],"Hawaii":[">99% Dem.","99% Dem.",">99% Dem.","Strong Dem.",">99% Dem.",">99% Dem.",">99% Dem.","Solid Dem.","Solid Dem.","Solid Dem."],"California":[">99% Dem.",">99% Dem.",">99% Dem.","Strong Dem.",">99% Dem.",">99% Dem.",">99% Dem.","Solid Dem.","Solid Dem.","Solid Dem."],"Vermont":[">99% Dem.","98% Dem.",">99% Dem.","Strong Dem.",">99% Dem.",">99% Dem.",">99% Dem.","Solid Dem.","Solid Dem.","Solid Dem."],"Rhode Island":[">99% Dem.","92% Dem.",">99% Dem.","Strong Dem.",">99% Dem.",">99% Dem.",">99% Dem.","Solid Dem.","Solid Dem.","Solid Dem."],"New York":[">99% Dem.",">99% Dem.",">99% Dem.","Strong Dem.",">99% Dem.",">99% Dem.",">99% Dem.","Solid Dem.","Solid Dem.","Solid Dem."],"Massachusetts":[">99% Dem.",">99% Dem.",">99% Dem.","Strong Dem.",">99% Dem.",">99% Dem.",">99% Dem.","Solid Dem.","Solid Dem.","Solid Dem."],"Illinois":[">99% Dem.","98% Dem.",">99% Dem.","Strong Dem.",">99% Dem.",">99% Dem.",">99% Dem.","Solid Dem.","Solid Dem.","Solid Dem."],"Connecticut":[">99% Dem.","96% Dem.",">99% Dem.","Strong Dem.",">99% Dem.",">99% Dem.",">99% Dem.","Solid Dem.","Solid Dem.","Solid Dem."],"New Jersey":[">99% Dem.","97% Dem.",">99% Dem.","Strong Dem.",">99% Dem.",">99% Dem.",">99% Dem.","Solid Dem.","Solid Dem.","Solid Dem."],"Washington":[">99% Dem.","98% Dem.",">99% Dem.","Strong Dem.",">99% Dem.",">99% Dem.",">99% Dem.","Solid Dem.","Solid Dem.","Solid Dem."],"Maryland":[">99% Dem.",">99% Dem.",">99% Dem.","Strong Dem.",">99% Dem.",">99% Dem.",">99% Dem.","Solid Dem.","Solid Dem.","Solid Dem."],"Maine (Congressional District 1)":[">99% Dem.","90% Dem.",">99% Dem.","N.A.","98% Dem.",">99% Dem.","N.A.","Solid Dem.","Solid Dem.","Solid Dem."],"Delaware":["99% Dem.","88% Dem.",">99% Dem.","Strong Dem.",">99% Dem.",">99% Dem.",">99% Dem.","Solid Dem.","Solid Dem.","Solid Dem."],"Oregon":["97% Dem.","94% Dem.",">99% Dem.","Strong Dem.",">99% Dem.",">99% Dem.",">99% Dem.","Solid Dem.","Solid Dem.","Solid Dem."],"Virginia":["95% Dem.","85% Dem.",">99% Dem.","Lean Dem.","97% Dem.","96% Dem.",">99% Dem.","Likely Dem.","Likely Dem.","Likely Dem."],"New Mexico":["95% Dem.","81% Dem.",">99% Dem.","Strong Dem.","98% Dem.","93% Dem.",">99% Dem.","Likely Dem.","Solid Dem.","Likely Dem."],"Minnesota":["94% Dem.","86% Dem.",">99% Dem.","Lean Dem.","99% Dem.",">99% Dem.",">99% Dem.","Likely Dem.","Likely Dem.","Likely Dem."],"Wisconsin":["94% Dem.","83% Dem.","99% Dem.","Lean Dem.","98% Dem.","98% Dem.",">99% Dem.","Lean Dem.","Lean Dem.","Likely Dem."],"Michigan":["93% Dem.","77% Dem.","99% Dem.","Lean Dem.","95% Dem.","91% Dem.",">99% Dem.","Lean Dem.","Lean Dem.","Lean Dem."],"Maine":["91% Dem.","80% Dem.",">99% Dem.","Lean Dem.","98% Dem.",">99% Dem.",">99% Dem.","Likely Dem.","Likely Dem.","Likely Dem."],"Colorado":["88% Dem.","76% Dem.",">99% Dem.","Lean Dem.","94% Dem.","95% Dem.","99% Dem.","Lean Dem.","Likely Dem.","Likely Dem."],"Pennsylvania":["88% Dem.","76% Dem.",">99% Dem.","Tossup","93% Dem.","91% Dem.",">99% Dem.","Lean Dem.","Lean Dem.","Lean Dem."],"New Hampshire":["78% Dem.","68% Dem.","93% Dem.","Strong Dem.","89% Dem.","63% Dem.","96% Dem.","Lean Dem.","Lean Dem.","Lean Dem."],"Nevada":["70% Dem.","58% Dem.","88% Dem.","Tossup","93% Dem.","74% Dem.","56% Dem.","Lean Dem.","Lean Dem.","Lean Dem."],"Florida":["66% Dem.","54% Dem.","89% Dem.","Tossup","79% Dem.","74% Dem.","75% Dem.","Tossup","Lean Dem.","Lean Dem."],"North Carolina":["66% Dem.","54% Dem.","80% Dem.","Tossup","63% Dem.","57% Rep.","59% Dem.","Tossup","Lean Dem.","Lean Dem."],"Ohio":["55% Rep.","63% Rep.","70% Rep.","Tossup","66% Rep.","63% Rep.","85% Rep.","Lean Rep.","Tossup","Lean Rep."],"Maine (Congressional District 2)":["62% Rep.","52% Rep.","50% Dem.","N.A.","54% Dem.","71% Dem.","N.A.","Tossup","Tossup","Lean Rep."],"Iowa":["62% Rep.","71% Rep.","87% Rep.","Tossup","84% Rep.","74% Rep.","97% Rep.","Lean Rep.","Lean Rep.","Lean Rep."],"Utah":["72% Rep.","84% Rep.",">99% Rep.","Solid Rep.","86% Rep.",">99% Rep.",">99% Rep.","Lean Rep.","Lean Rep.","Lean Rep."],"Nebraska (Congressional District 2)":["78% Rep.","62% Rep.","50% Dem.","N.A.","80% Rep.","92% Rep.","N.A.","Tossup","Tossup","Lean Rep."],"Georgia":["80% Rep.","81% Rep.","90% Rep.","Tossup","90% Rep.","88% Rep.","97% Rep.","Lean Rep.","Lean Rep.","Likely Rep."],"Arizona":["80% Rep.","70% Rep.","86% Rep.","Lean Rep.","78% Rep.","91% Rep.","94% Rep.","Lean Rep.","Lean Rep.","Lean Rep."],"Mississippi":["84% Rep.","98% Rep.",">99% Rep.","Lean Rep.",">99% Rep.",">99% Rep.",">99% Rep.","Solid Rep.","Solid Rep.","Solid Rep."],"South Carolina":["87% Rep.","89% Rep.","96% Rep.","Lean Rep.","99% Rep.","95% Rep.",">99% Rep.","Likely Rep.","Solid Rep.","Solid Rep."],"Alaska":["95% Rep.","76% Rep.","99% Rep.","Solid Rep.","95% Rep.",">99% Rep.",">99% Rep.","Likely Rep.","Solid Rep.","Likely Rep."],"Texas":["96% Rep.","95% Rep.","99% Rep.","Lean Rep.","98% Rep.",">99% Rep.",">99% Rep.","Likely Rep.","Solid Rep.","Solid Rep."],"Missouri":["98% Rep.","96% Rep.",">99% Rep.","Solid Rep.","99% Rep.",">99% Rep.",">99% Rep.","Likely Rep.","Likely Rep.","Solid Rep."],"Kansas":["98% Rep.","97% Rep.",">99% Rep.","Solid Rep.",">99% Rep.",">99% Rep.",">99% Rep.","Solid Rep.","Solid Rep.","Solid Rep."],"Indiana":["98% Rep.","97% Rep.",">99% Rep.","Solid Rep.","98% Rep.",">99% Rep.",">99% Rep.","Likely Rep.","Lean Rep.","Solid Rep."],"Louisiana":["99% Rep.","99% Rep.",">99% Rep.","Solid Rep.",">99% Rep.",">99% Rep.",">99% Rep.","Solid Rep.","Solid Rep.","Solid Rep."],"Montana":["99% Rep.","96% Rep.",">99% Rep.","Solid Rep.","93% Rep.",">99% Rep.",">99% Rep.","Solid Rep.","Solid Rep.","Solid Rep."],"Nebraska (Congressional District 1)":["99% Rep.","91% Rep.",">99% Rep.","N.A.",">99% Rep.",">99% Rep.","N.A.","Solid Rep.","Solid Rep.","Solid Rep."],"Tennessee":[">99% Rep.","98% Rep.",">99% Rep.","Solid Rep.",">99% Rep.",">99% Rep.",">99% Rep.","Solid Rep.","Solid Rep.","Solid Rep."],"Oklahoma":[">99% Rep.",">99% Rep.",">99% Rep.","Solid Rep.",">99% Rep.",">99% Rep.",">99% Rep.","Solid Rep.","Solid Rep.","Solid Rep."],"West Virginia":[">99% Rep.",">99% Rep.",">99% Rep.","Solid Rep.",">99% Rep.",">99% Rep.",">99% Rep.","Solid Rep.","Solid Rep.","Solid Rep."],"North Dakota":[">99% Rep.","98% Rep.",">99% Rep.","Solid Rep.",">99% Rep.",">99% Rep.",">99% Rep.","Solid Rep.","Solid Rep.","Solid Rep."],"Alabama":[">99% Rep.",">99% Rep.",">99% Rep.","Solid Rep.",">99% Rep.",">99% Rep.",">99% Rep.","Solid Rep.","Solid Rep.","Solid Rep."],"Arkansas":[">99% Rep.","99% Rep.",">99% Rep.","Solid Rep.",">99% Rep.",">99% Rep.",">99% Rep.","Solid Rep.","Solid Rep.","Solid Rep."],"Nebraska":[">99% Rep.","98% Rep.",">99% Rep.","Solid Rep.",">99% Rep.",">99% Rep.",">99% Rep.","Solid Rep.","Likely Rep.","Solid Rep."],"South Dakota":[">99% Rep.","95% Rep.",">99% Rep.","Solid Rep.",">99% Rep.",">99% Rep.",">99% Rep.","Solid Rep.","Solid Rep.","Solid Rep."],"Idaho":[">99% Rep.","99% Rep.",">99% Rep.","Solid Rep.",">99% Rep.",">99% Rep.",">99% Rep.","Solid Rep.","Solid Rep.","Solid Rep."],"Kentucky":[">99% Rep.",">99% Rep.",">99% Rep.","Solid Rep.",">99% Rep.",">99% Rep.",">99% Rep.","Solid Rep.","Solid Rep.","Solid Rep."],"Wyoming":[">99% Rep.","99% Rep.",">99% Rep.","Solid Rep.",">99% Rep.",">99% Rep.",">99% Rep.","Solid Rep.","Solid Rep.","Solid Rep."],"Nebraska (Congressional District 3)":[">99% Rep.","99% Rep.",">99% Rep.","N.A.",">99% Rep.",">99% Rep.","N.A.","Solid Rep.","Solid Rep.","Solid Rep."]};
 
+
+var svg = document.querySelector('svg');
+var table = document.querySelector('.table');
+
 function swapSibling(node1, node2) {
   node1.parentNode.replaceChild(node1, node2);
   node1.parentNode.insertBefore(node2, node1); 
@@ -133,6 +137,21 @@ var majorityVotes = new Gradient([
 var outlines = document.getElementById('outlines');
 var tooltip = document.getElementById('tooltip');
 var states = outlines.children;
+
+function positionTooltip(x, y) {
+  var boundingBox = tooltip.getBoundingClientRect();
+  var containerBox = table.getBoundingClientRect();
+  if (x + boundingBox.width > containerBox.right) {
+    tooltip.style.left = '' + (x - boundingBox.width) + 'px';
+  } else {
+    tooltip.style.left = '' + x + 'px';
+  }
+  if (y + boundingBox.height > containerBox.bottom) {
+    tooltip.style.top = '' + (y - boundingBox.height) + 'px';
+  } else {
+    tooltip.style.top = '' + y + 'px';
+  }
+}
 
 var state_colors = {};
 for (var key in states_map) {
@@ -202,7 +221,6 @@ function createRect(x1, x2, color) {
   return rect;
 }
 
-var svg = document.querySelector('svg');
 var bars_elem = document.createElementNS(svg_spec, 'g');
 var bars_overlay = document.createElementNS(svg_spec, 'g');
 var base_bar = createRect(electoral_vote_start, electoral_vote_end);
@@ -261,13 +279,6 @@ function fill_tooltip(id, view) {
   electionResultElem.appendChild(outcomeText);
   electionResultElem.appendChild(colorDiv);
   electionResultElem.appendChild(victor);
-  /*
-  <div class="election_results"><span class="outcome_text">2016 election result:</span>
-  
-  <div class="color" style="background: Red"></div>Donald Trump ✓
-</div>
-*/
-
   var tableElem = document.createElement('div');
   tableElem.className = 'table2';
   var rowElem = null;
@@ -343,8 +354,7 @@ function fill_in_state_boxes() {
         tooltip.style.visibility = 'hidden';
       }
       rect.onmousemove = function(e) {
-        tooltip.style.left = '' + e.pageX + 'px';
-        tooltip.style.top = '' + e.pageY + 'px';
+        positionTooltip(e.pageX, e.pageY);
       }
       bars_overlay.appendChild(rect);
       x += width;
@@ -380,11 +390,6 @@ function startBarTransitions(bar) {
   }
 
   var percent = 0.0;
-  // if (bar in bar_progress) {
-  //   current_progress = bar;
-  // } else {
-  //   bar_progress[bar] = current_progress;
-  // }
 
   var reset = function(id) {
     slowFirst = false;
@@ -469,6 +474,32 @@ function setSource(i) {
   sourceContainer.appendChild(sourceElement);
 }
 
+var midContainer = document.createElementNS(svg_spec, 'g');
+midContainer.style.pointerEvents = 'none';
+svg.appendChild(midContainer);
+function draw_mid(pos) {
+  while (midContainer.firstChild) {
+    midContainer.removeChild(midContainer.firstChild);
+  }
+  var line = document.createElementNS(svg_spec, 'line');
+  line.setAttribute('x1', pos);
+  line.setAttribute('x2', pos);
+  line.setAttribute('y1', electoral_vote_y);
+  line.setAttribute('y2', electoral_vote_y + electoral_vote_height);
+  line.setAttribute('stroke', 'black');
+  line.setAttribute('stroke-width', '1px');
+  line.setAttribute('stroke-dasharray', '3, 3');
+  var text = document.createElementNS(svg_spec, 'text');
+  text.setAttribute('x', pos);
+  text.setAttribute('y', electoral_vote_y + electoral_vote_height + 25);
+  text.textContent = '270';
+  text.setAttribute('fill', 'gray');
+  text.setAttribute('font-family', 'Arial, sans-serif');
+  text.setAttribute('text-anchor', 'middle');
+  midContainer.appendChild(line);
+  midContainer.appendChild(text);
+}
+
 var hatched_state = null;
 function setView(fn, gradient, view) {
   clear_state_boxes();
@@ -536,17 +567,27 @@ function setView(fn, gradient, view) {
       }
     }
     state.onmousemove = function(e) {
-      tooltip.style.left = '' + e.pageX + 'px';
-      tooltip.style.top = '' + e.pageY + 'px';
+      positionTooltip(e.pageX, e.pageY);
     }
   }
 
-  overall_dem.textContent = (sum_bars[1] || 0) + (sum_bars[3] || 0);
-  overall_rep.textContent = (sum_bars[-1] || 0) + (sum_bars[-3] || 0);
+  var dem_ev = (sum_bars[1] || 0) + (sum_bars[3] || 0);
+  var rep_ev = (sum_bars[-1] || 0) + (sum_bars[-3] || 0);
+  overall_dem.textContent = dem_ev;
+  overall_rep.textContent = rep_ev;
   solid_dem.textContent = sum_bars[3] || 0;
   solid_rep.textContent = sum_bars[-3] || 0;
   lean_dem.textContent = sum_bars[1] || 0;
   lean_rep.textContent = sum_bars[-1] || 0;
+
+  var mid_pos;
+  if (dem_ev >= rep_ev) {
+    mid_pos = 270 / complete_bar_sum * (electoral_vote_end - electoral_vote_start) + electoral_vote_start;
+  } else {
+    mid_pos = electoral_vote_end - 270 / complete_bar_sum * (electoral_vote_end - electoral_vote_start);
+  }
+
+  draw_mid(mid_pos);
 
   for (var i = 0; i < ordered_bars.length; i++) {
     startBarTransitions(ordered_bars[i]);
