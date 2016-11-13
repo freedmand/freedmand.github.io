@@ -18,6 +18,8 @@ body {
     max-width: 40em !important;
     padding: 1em 1.5em !important;
     margin-top: 1em !important;
+    border-right: inherit !important;
+    border-top: solid 1px Gainsboro;
   }
 }
 
