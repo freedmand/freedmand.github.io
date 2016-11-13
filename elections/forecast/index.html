@@ -1,11 +1,19 @@
 <html>
 <head>
   <title>US state map</title>
+  <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
-
+  <div class="content">
+    <div class="header">
+      Elections forecaster
+    </div>
+    Play with the visualization below to explore the differences between the election outcomes and several popular political forecasts and polls.
+  </div>
+<!-- Begin visualization -->
 <div id="tooltip"></div>
+<div class="table-row">
 <div class="table">
 <div class="graphic">
 <div class="cell">
@@ -489,6 +497,15 @@
 </div>
 </div>
 </div>
+</div>
+<!-- End visualization -->
+  <div class="content">
+    <div class="subheader">
+      How does it work?
+    </div>
+    This elections forecaster uses data from the New York Times.
+  </div>
+
 <script src="interact.js"></script>
 </body>
 </html>
