@@ -1,6 +1,23 @@
 <html>
 <head>
-  <title>US state map</title>
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+  <title>Elections Forecaster</title>
   <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="main.css">
 </head>
@@ -9,7 +26,8 @@
     <div class="header">
       Elections forecaster
     </div>
-    Play with the visualization below to explore the differences between the election outcomes and several popular political forecasts and polls.
+    <p>Republican candidate Donald Trump surprised pollsters and pundits last Tuesday by delivering a decisive victory in the presidential election on November 8th. Trump&rsquo;s success is largely due to a dominating performance in the rust belt in which he flipped several key states that were predicted for Democratic candidate, Hillary Clinton.</p>
+    <p>Play with the interactive map below to explore the differences between the election outcomes and several popular political forecasts and polls.</p>
   </div>
 <!-- Begin visualization -->
 <div id="tooltip"></div>
@@ -483,13 +501,13 @@
 <text text-anchor="end" x="510.554" y="448" fill="#EB0020" font-family="Arial, sans-serif" font-size="19">republican <tspan id="overall_rep" style="font-weight: bold">0</tspan></text>
 
 
-<text x="60.554" y="499" fill="Gray" font-family="Arial, sans-serif" font-size="15"><tspan id="solid_dem" style="font-weight: bold">0</tspan> solid</text>
+<text class="solid-text" x="60.554" y="499" fill="Gray" font-family="Arial, sans-serif" font-size="15"><tspan id="solid_dem" style="font-weight: bold">0</tspan> solid</text>
 
-<text text-anchor="end" x="510.554" y="499" fill="Gray" font-family="Arial, sans-serif" font-size="15">solid <tspan id="solid_rep" style="font-weight: bold">0</tspan></text>
+<text class="solid-text" text-anchor="end" x="510.554" y="499" fill="Gray" font-family="Arial, sans-serif" font-size="15">solid <tspan id="solid_rep" style="font-weight: bold">0</tspan></text>
 
-<text x="60.554" y="520" fill="Gray" font-family="Arial, sans-serif" font-size="15"><tspan id="lean_dem" style="font-weight: bold">0</tspan> leaning</text>
+<text class="leaning-text" x="60.554" y="520" fill="Gray" font-family="Arial, sans-serif" font-size="15"><tspan id="lean_dem" style="font-weight: bold">0</tspan> leaning</text>
 
-<text text-anchor="end" x="510.554" y="520" fill="Gray" font-family="Arial, sans-serif" font-size="15">leaning <tspan id="lean_rep" style="font-weight: bold">0</tspan></text>
+<text class="leaning-text" text-anchor="end" x="510.554" y="520" fill="Gray" font-family="Arial, sans-serif" font-size="15">leaning <tspan id="lean_rep" style="font-weight: bold">0</tspan></text>
 </svg>
 </div>
 <div class="right_panel">
@@ -503,7 +521,17 @@
     <div class="subheader">
       How does it work?
     </div>
-    This elections forecaster uses data from the New York Times.
+    <p>The Elections Forecaster primarily uses data from <i>TheUpshot</i> &mdash; which gathers predictions from <i>The New York Times</i>, <i>FiveThirtyEight</i>, <i>Huffington Post</i>, <i>YouGov</i>, <i>PredictWise</i>, <i>Princeton Election Consortium</i>, <i>Daily Kos</i>, <i>The Cook Political Report</i>, <i>The Rothenberg &amp; Gonzales Political Report</i>, and <i>Sabato&rsquo;s Crystal Ball</i> &mdash; and <i>YouGov</i>. The data was scraped from <i>TheUpshot</i> on November 7th and <i>YouGov</i> on November 6th and is binned into 7 categories:</p>
+    <ul>
+        <li><span class="percent">50%-65%</span>: Tossup (the outcome could reliably go either way)</li>
+        <li><span class="percent">66%-84%</span>: Lean Dem., Lean Rep.</li>
+        <li><span class="percent">85%-95%</span>: Likely Dem., Likely Rep.</li>
+        <li><span class="percent">96%->99%</span>: Solid Dem., Solid Rep.</li>
+    </ul>
+    <p>Sources which do not have percentage forecasts &mdash; namely <i>YouGov</i>, <i>Cook</i>, <i>Roth</i>, and <i>Sabato</i> &mdash; follow the same 7 categories and are matched into their corresponding bin. <i>YouGov</i> notably does not have any &ldquo;Likely Dem.&rdquo; or &ldquo;Likely Rep.&rdquo; categories.</p>
+    <p>The reported aggregate score &ldquo;All models combined&rdquo; is an average of each forecast result, treating each prediction on a 7-point scale.</p>
+    <p><i>Daily Kos</i> and <i>YouGov</i> do not have additional data for the sub-districts of Maine and Nebraska, the two states which give a portion of their electoral votes to Congressional districts. For these two sources, it is assumed sub-districts have the same prediction as the entire state.</p>
+    <p>As of publication, the <i>Associated Press</i> has yet to call the final election result for Michigan, though it is sitting 13,000 votes in favor of Trump with a supposed 100% of the votes in. This model assumes that Michigan goes to Trump in the final election outcome.</p>
   </div>
 
 <script src="interact.js"></script>

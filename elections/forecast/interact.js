@@ -721,16 +721,43 @@ function createButton(text, event, name, classname) {
   return label;
 }
 
+function changeText(classname, orig, repl) {
+  var elems = document.querySelectorAll('.' + classname);
+  for (var i = 0; i < elems.length; i++) {
+    for (var node = elems[i].firstChild; node; node = node.nextSibling) {
+      if (node.nodeType == 3) {
+        node.textContent = node.textContent.replace(orig, repl);
+        break;
+      }
+    }
+  }
+}
+
+var flipText = 'flip';
+var tossupText = 'tossup';
+
+function changeTexts() {
+  changeText('solid-text', 'solid', flipText);
+  changeText('leaning-text', 'leaning', tossupText);
+}
+
+function restoreTexts() {
+  changeText('solid-text', flipText, 'solid');
+  changeText('leaning-text', tossupText, 'leaning');
+}
+
 var container = document.getElementById('container');
 
 var election_outcomes_text = 'Election outcomes';
 var all = 'All models combined';
 var forecastsButton = createButton('View forecasts', function(event) {
+  restoreTexts();
   restorePreviousSelections();
   enableForecasts();
 }, 'election');
 forecastsButton.querySelector('input').checked = true;
 var differenceButton = createButton('View difference', function(event) {
+  changeTexts();
   previous_selection_up = roundButton.querySelector('input').checked;
   previous_selection_down = roundDownButton.querySelector('input').checked;
   roundButton.querySelector('input').checked = true;
@@ -738,6 +765,8 @@ var differenceButton = createButton('View difference', function(event) {
   enableForecasts();
 }, 'election');
 var roundButton = createButton('Round forecasts up', function() {
+  previous_selection_up = null;
+  previous_selection_down = null;
   var roundChecked = roundButton.querySelector('input').checked;
   var roundDownChecked = roundDownButton.querySelector('input').checked;
   if (roundChecked && roundDownChecked) {
@@ -746,6 +775,8 @@ var roundButton = createButton('Round forecasts up', function() {
   setView(current_fn, majorityVotes, current_election_view);
 }, undefined, 'normal_check');
 var roundDownButton = createButton('Round forecasts down', function() {
+  previous_selection_up = null;
+  previous_selection_down = null;
   var roundChecked = roundButton.querySelector('input').checked;
   var roundDownChecked = roundDownButton.querySelector('input').checked;
   if (roundChecked && roundDownChecked) {
@@ -794,6 +825,7 @@ setView(wrapFunction(majority), majorityVotes, 'all');
 container.appendChild(makeP('Play with election forecasts and results'));
 container.appendChild(forecastsButton);
 container.appendChild(createButton(election_outcomes_text, function(event) {
+  restoreTexts();
   restorePreviousSelections();
   disableForecasts();
 }, 'election'));
