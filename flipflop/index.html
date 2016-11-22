@@ -5,6 +5,7 @@
   <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700" rel="stylesheet">
 </head>
 <body>
+  <div id="overlay" class="dragevent" style="display: none;" onmousemove="mousemove(event)" onmouseup="mouseup(event)"></div>
   <div class="content">
     <h1>Flip-flopping the color?</h1>
     <p>Over one year ago someone posted a picture of a dress that millions of online viewers thought was gold and white, and millions thought was blue or black. Late last week, the optical illusion has launched back into the mainstream, when a Twitter user posted a picture of flip-flops that could be interpreted on the same spectrum.</p>
@@ -31,12 +32,12 @@
           BLACK &amp; BLUE <span class="arrow">&#9654;</span>
         </div>
       </div>
+      <div class="drag-bar" id="dragbar" draggable="true" onmousedown="dragstart(event)"></div>
       <div id="opaque-bar" class="opaque" style="-webkit-filter: brightness(0.71);"></div>
       <div id="true-top" class="true top"></div>
       <div id="true-bottom" class="true bottom"></div>
       <div class="gold-grad bar"></div>
       <div class="blue-grad bar"></div>
-      <input draggable="true" id="slider" type="range" value="50" step="0.1" max="100" oninput="fade(this)" ondragstart="mousedown(event)" ondrag="mousemove(event)" ondragend="mouseup(event)" ontouchstart="jump(event)">
       <div class="triangle">&#9660;</div>
     </div>
     <button id="reset-button" class="reset" disabled="true" onclick="reset()">&mdash; RESET &mdash;</button>

@@ -13,6 +13,9 @@ var pic_blue = document.getElementById('blue');
 var pic_normal = document.getElementById('normal');
 var pic_thumb = document.getElementById('thumb');
 
+var overlay = document.getElementById('overlay');
+var dragbar = document.getElementById('dragbar');
+
 var sources = ['flipflop', 'dress'];
 var source = false;
 
@@ -65,42 +68,33 @@ function change(perc) {
   }
 }
 
-function fade(evt) {
-  var perc = evt.value / evt.max;
-  change(perc);
-}
-
-function jump(evt) {
-  evt.target.value = (evt.target.max / evt.target.offsetWidth) * (evt.touches[0].pageX - evt.target.getBoundingClientRect().left);
-  var perc = evt.target.value / evt.target.max;
-  change(perc);
-  event.preventDefault();
-}
-
+var prevCursor = document.body.style.cursor;
 var down = false;
 
-function mousedown(evt) {
-  evt.target.value = (evt.target.max / evt.target.offsetWidth) * (evt.pageX - evt.target.getBoundingClientRect().left);
-  var perc = evt.target.value / evt.target.max;
+function dragstart(evt) {
+  var perc = Math.max(Math.min((evt.pageX - dragbar.getBoundingClientRect().left) / dragbar.offsetWidth, 1.0), 0.0);
   change(perc);
   down = true;
-  event.preventDefault();
+  overlay.style.display = 'block';
+  evt.preventDefault();
 }
 
 function mousemove(evt) {
   if (down) {
-    evt.target.value = (evt.target.max / evt.target.offsetWidth) * (evt.pageX - evt.target.getBoundingClientRect().left);
-    var perc = evt.target.value / evt.target.max;
+    var perc = Math.max(Math.min((evt.pageX - dragbar.getBoundingClientRect().left) / dragbar.offsetWidth, 1.0), 0.0);
     change(perc);
-    event.preventDefault();
   }
 }
 
 function mouseup(evt) {
+  if (down) {
+    var perc = Math.max(Math.min((evt.pageX - dragbar.getBoundingClientRect().left) / dragbar.offsetWidth, 1.0), 0.0);
+    change(perc);
+  }
   down = false;
+  overlay.style.display = 'none';
 }
 
 function reset() {
-  slider.value = 50;
   change(0.5);
 }
