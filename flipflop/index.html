@@ -1,0 +1,49 @@
+<html>
+<head>
+  <title>Flip-flopping the color</title>
+  <link rel="stylesheet" type="text/css" href="main.css">
+  <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700" rel="stylesheet">
+</head>
+<body>
+  <div class="content">
+    <h1>Flip-flopping the color?</h1>
+    <p>Over one year ago someone posted a picture of a dress that millions of online viewers thought was gold and white, and millions thought was blue or black. Late last week, the optical illusion has launched back into the mainstream, when a Twitter user posted a picture of flip-flops that could be interpreted on the same spectrum.</p>
+    <p>What color do you think the flip-flops are? White and gold, or blue and black? Play with the slider below to see if you can switch to the other side. (And click on the dress to try with that image)</p>
+    <div class="container">
+      <img id="gold" class="image gold" class="image" src="flipflop_gold.png" style="opacity: 0">
+      <img id="blue" class="image blue" class="image" src="flipflop_blue.png" style="opacity: 0">
+      <img id="normal" class="normal image" src="flipflop_normal.png">
+      <img id="thumb" class="thumb" src="dress_normal.png" onclick="reverse()">
+      <div class="caption">The shoes in question. &copy; Twitter</div>
+    </div>
+  <!--   <div class="container">
+      <img class="image gold" class="image" src="dress_gold.png" style="opacity: 0">
+      <img class="image blue" class="image" src="dress_blue.png" style="opacity: 0">
+      <img class="normal image" src="dress_normal.png">
+    </div> -->
+    <div class="slider-bar">
+      <div class="text">
+        <div class="fancy left">
+          <span class="arrow">&#9664;</span> WHITE &amp; GOLD
+        </div>
+
+        <div class="fancy right">
+          BLACK &amp; BLUE <span class="arrow">&#9654;</span>
+        </div>
+      </div>
+      <div id="opaque-bar" class="opaque" style="-webkit-filter: brightness(0.71);"></div>
+      <div id="true-top" class="true top"></div>
+      <div id="true-bottom" class="true bottom"></div>
+      <div class="gold-grad bar"></div>
+      <div class="blue-grad bar"></div>
+      <input id="slider" type="range" value="50" step="0.1" max="100" oninput="fade(this)">
+      <div class="triangle">&#9660;</div>
+    </div>
+    <button id="reset-button" class="reset" disabled="true" onclick="reset()">&mdash; RESET &mdash;</button>
+<!--     <h1>How does it work?</h1>
+    <p>The New York Times did an insightful piece on this the last time </p> -->
+  </div>
+  <script src="interact.js"></script>
+
+</body>
+</html>
