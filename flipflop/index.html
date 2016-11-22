@@ -32,7 +32,7 @@
           BLACK &amp; BLUE <span class="arrow">&#9654;</span>
         </div>
       </div>
-      <div class="drag-bar" id="dragbar" draggable="true" onmousedown="dragstart(event)"></div>
+      <div class="drag-bar" id="dragbar" draggable="false" onmousedown="dragstart(event)" ontouchstart="dragstart(event)" ontouchmove="mousemove(event)" ontouchend="mouseup(event)"></div>
       <div id="opaque-bar" class="opaque" style="-webkit-filter: brightness(0.71);"></div>
       <div id="true-top" class="true top"></div>
       <div id="true-bottom" class="true bottom"></div>

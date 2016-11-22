@@ -72,25 +72,24 @@ var prevCursor = document.body.style.cursor;
 var down = false;
 
 function dragstart(evt) {
-  var perc = Math.max(Math.min((evt.pageX - dragbar.getBoundingClientRect().left) / dragbar.offsetWidth, 1.0), 0.0);
+  var touched = 'touches' in evt;
+  var perc = Math.max(Math.min(((touched ? evt.touches[0].pageX : evt.pageX) - dragbar.getBoundingClientRect().left) / dragbar.offsetWidth, 1.0), 0.0);
   change(perc);
   down = true;
-  overlay.style.display = 'block';
+  if (!touched) { overlay.style.display = 'block' };
   evt.preventDefault();
 }
 
 function mousemove(evt) {
+  var touched = 'touches' in evt;
   if (down) {
-    var perc = Math.max(Math.min((evt.pageX - dragbar.getBoundingClientRect().left) / dragbar.offsetWidth, 1.0), 0.0);
+    var perc = Math.max(Math.min(((touched ? evt.touches[0].pageX : evt.pageX) - dragbar.getBoundingClientRect().left) / dragbar.offsetWidth, 1.0), 0.0);
     change(perc);
   }
+  evt.preventDefault();
 }
 
 function mouseup(evt) {
-  if (down) {
-    var perc = Math.max(Math.min((evt.pageX - dragbar.getBoundingClientRect().left) / dragbar.offsetWidth, 1.0), 0.0);
-    change(perc);
-  }
   down = false;
   overlay.style.display = 'none';
 }
