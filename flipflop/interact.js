@@ -70,6 +70,10 @@ function fade(evt) {
   change(perc);
 }
 
+function jump(evt) {
+  evt.value = (e.target.max / e.target.offsetWidth) * (e.gesture.touches[0].screenX - e.target.offsetLeft);
+}
+
 function reset() {
   slider.value = 50;
   change(0.5);
