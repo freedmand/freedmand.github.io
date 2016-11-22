@@ -77,6 +77,29 @@ function jump(evt) {
   event.preventDefault();
 }
 
+var down = false;
+
+function mousedown(evt) {
+  evt.target.value = (evt.target.max / evt.target.offsetWidth) * (evt.pageX - evt.target.getBoundingClientRect().left);
+  var perc = evt.target.value / evt.target.max;
+  change(perc);
+  down = true;
+  event.preventDefault();
+}
+
+function mousemove(evt) {
+  if (down) {
+    evt.target.value = (evt.target.max / evt.target.offsetWidth) * (evt.pageX - evt.target.getBoundingClientRect().left);
+    var perc = evt.target.value / evt.target.max;
+    change(perc);
+    event.preventDefault();
+  }
+}
+
+function mouseup(evt) {
+  down = false;
+}
+
 function reset() {
   slider.value = 50;
   change(0.5);
