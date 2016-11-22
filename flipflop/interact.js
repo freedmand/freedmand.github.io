@@ -71,7 +71,10 @@ function fade(evt) {
 }
 
 function jump(evt) {
-  evt.value = (e.target.max / e.target.offsetWidth) * (e.gesture.touches[0].screenX - e.target.offsetLeft);
+  evt.target.value = (evt.target.max / evt.target.offsetWidth) * (evt.touches[0].pageX - evt.target.getBoundingClientRect().left);
+  var perc = evt.target.value / evt.target.max;
+  change(perc);
+  event.preventDefault();
 }
 
 function reset() {
