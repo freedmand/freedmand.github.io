@@ -19,7 +19,7 @@ var dragbar = document.getElementById('dragbar');
 var sources = ['flipflop', 'dress'];
 var source = false;
 
-var width = 429;
+var width = 550;
 var sliderWidth = 16;
 
 var gold_colors = [[222, 189, 74], [107, 91, 55], [56, 41, 2]];
@@ -73,7 +73,7 @@ var down = false;
 
 function dragstart(evt) {
   var touched = 'touches' in evt;
-  var perc = Math.max(Math.min(((touched ? evt.touches[0].pageX : evt.pageX) - dragbar.getBoundingClientRect().left) / dragbar.offsetWidth, 1.0), 0.0);
+  var perc = Math.max(Math.min(((touched ? evt.touches[0].screenX : evt.pageX) - dragbar.getBoundingClientRect().left) / dragbar.offsetWidth, 1.0), 0.0);
   change(perc);
   down = true;
   if (!touched) { overlay.style.display = 'block' };
@@ -83,7 +83,7 @@ function dragstart(evt) {
 function mousemove(evt) {
   var touched = 'touches' in evt;
   if (down) {
-    var perc = Math.max(Math.min(((touched ? evt.touches[0].pageX : evt.pageX) - dragbar.getBoundingClientRect().left) / dragbar.offsetWidth, 1.0), 0.0);
+    var perc = Math.max(Math.min(((touched ? evt.touches[0].screenX : evt.pageX) - dragbar.getBoundingClientRect().left) / dragbar.offsetWidth, 1.0), 0.0);
     change(perc);
   }
   evt.preventDefault();
