@@ -129,7 +129,7 @@ input[type=range]::-webkit-slider-runnable-track {
 
 .fancy {
   display: table-cell;
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .left {
@@ -157,7 +157,7 @@ input[type=range]::-webkit-slider-runnable-track {
 
 h1 {
     text-align: left;
-    margin: 2em 40px 1em 40px;
+    margin: 1em 40px 1em 40px;
     color: #383737;
 }
 
@@ -169,14 +169,18 @@ p {
 }
 
 .caption {
-    width: 300px;
+    width: 500px;
     margin-left: auto;
     margin-right: auto;
     text-align: right;
-    color: #2B2B2B;
+    color: #A5A5A5;
     font-family: Arial, sans-serif;
     font-size: 13px;
     margin-top: 9px;
+}
+
+.caption a {
+  color: #A5A5A5;
 }
 
 .reset {
@@ -245,4 +249,15 @@ p {
     cursor: pointer;
     z-index: 20;
     background: Transparent;
+}
+
+.iframe {
+    text-align: center;
+    padding-top: 1em;
+}
+
+.iframe-block {
+    display: inline-block;
+    box-shadow: 0 0 10px Gainsboro;
+    padding: 15px;
 }

@@ -18,6 +18,11 @@ var dragbar = document.getElementById('dragbar');
 
 var sources = ['flipflop', 'dress'];
 var source = false;
+var sourceLinks = ['https://twitter.com/positivedemi/status/799346903112630272/photo/1', 'http://swiked.tumblr.com/'];
+var sourceTexts = ['Twitter', 'Tumblr'];
+var captionTexts = ['The flip-flops in question.', 'The dress that circulated last year.'];
+var sourceElem = document.getElementById('source');
+var captionElem = document.getElementById('caption-text');
 
 var width = 550;
 var sliderWidth = 16;
@@ -45,6 +50,10 @@ function reverse() {
   pic_gold.src = sources[source ? 1 : 0] + '_gold.png';
   pic_blue.src = sources[source ? 1 : 0] + '_blue.png';
   pic_normal.src = sources[source ? 1 : 0] + '_normal.png';
+  sourceElem.textContent = sourceTexts[source ? 1 : 0];
+  sourceElem.href = sourceLinks[source ? 1 : 0];
+  captionElem.textContent = captionTexts[source ? 1 : 0];
+  captionElem
   reset();
 }
 
