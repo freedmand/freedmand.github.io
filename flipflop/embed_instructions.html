@@ -1,0 +1,63 @@
+<html>
+<head>
+  <title>Flip-flopping the color</title>
+  <meta name="description" content="What color do you think these flip-flops are? White and gold, or blue and black? Play with a slider to see if you can switch to the other side." />
+  <!-- Twitter Card data -->
+  <meta name="twitter:card" value="What color do you think these flip-flops are? White and gold, or blue and black? Play with a slider to switch to the other side.">
+
+  <!-- Open Graph data -->
+  <meta property="og:title" content="Flip-flopping the color" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="http://www.dylanfreedman.com/flipflop/" />
+  <meta property="og:image" content="http://www.dylanfreedman.com/flipflop/flipflop_smooth.png" />
+  <meta property="og:description" content="What color do you think these flip-flops are? White and gold, or blue and black? Play with a slider to see if you can switch to the other side." />
+  <link rel="stylesheet" type="text/css" href="main.css">
+  <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700" rel="stylesheet">
+</head>
+<body style="margin: 0; padding: 0;">
+  <div id="overlay" class="dragevent" style="display: none;" onmousemove="mousemove(event)" onmouseup="mouseup(event)"></div>
+  <div class="content">
+    <h1>Embed instructions</h1>
+    <p>
+      Copy and paste the following code to the website you would like to embed this in:
+      <span class="code">&lt;iframe width="600" height="720" src="http://www.dylanfreedman.com/flipflop/embed.html"&gt;</span>
+    </p>
+    <div class="embeddable">
+      <div class="container">
+        <img id="gold" class="image gold" class="image" src="flipflop_gold.png" style="opacity: 0">
+        <img id="blue" class="image blue" class="image" src="flipflop_blue.png" style="opacity: 0">
+        <img id="normal" class="normal image" src="flipflop_normal.png">
+        <img id="thumb" class="thumb" src="dress_normal.png" onclick="reverse()">
+        <div class="share">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//www.dylanfreedman.com/flipflop/" target="blank_"><img src="facebook.png" title="Share on Facebook"></a>
+          <a href="https://twitter.com/home?status=White%20and%20gold,%20or%20blue%20and%20black?%20Play%20with%20the%20colors%20at%20http%3A//www.dylanfreedman.com/flipflop/" target="blank_"><img src="twitter.png" title="Share on Twitter"></a>
+          <a href="https://plus.google.com/share?url=http%3A//www.dylanfreedman.com/flipflop/" target="blank_"><img src="googleplus.png" title="Share on Google+"></a>
+          <a href="mailto:?&body=http%3A//www.dylanfreedman.com/flipflop/" target="blank_">Email</a>
+        </div>
+        <div class="caption"><span id="caption-text">The flip-flops in question.</span> &copy; <a id="source" href="https://twitter.com/positivedemi/status/799346903112630272/photo/1" target="blank_">Twitter</a></div>
+      </div>
+      <div class="slider-bar">
+        <div class="text">
+          <div class="fancy left">
+            WHITE &amp; GOLD
+          </div>
+
+          <div class="fancy right">
+            BLACK &amp; BLUE
+          </div>
+        </div>
+        <div class="drag-bar" id="dragbar" draggable="false" onmousedown="dragstart(event)" ontouchstart="dragstart(event)" ontouchmove="mousemove(event)" ontouchend="mouseup(event)"></div>
+        <div id="opaque-bar" class="opaque" style="-webkit-filter: brightness(0.71);"></div>
+        <div id="true-top" class="true top"></div>
+        <div id="true-bottom" class="true bottom"></div>
+        <div class="gold-grad bar"></div>
+        <div class="blue-grad bar"></div>
+        <div class="triangle">&#9660;</div>
+      </div>
+      <button id="reset-button" class="reset" disabled="true" onclick="reset()" style="margin-bottom: 1.4em;">&mdash; RESET &mdash;</button>
+      <div class="copy-notice">&copy; <a href="http://www.dylanfreedman.com/flipflop" target="blank_">dylanfreedman.com</a></div class="copy-notice">
+    </div>
+  <script src="interact.js"></script>
+
+</body>
+</html>

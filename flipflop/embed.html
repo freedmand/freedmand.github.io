@@ -14,12 +14,9 @@
   <link rel="stylesheet" type="text/css" href="main.css">
   <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700" rel="stylesheet">
 </head>
-<body>
+<body style="margin: 0; padding: 0;">
   <div id="overlay" class="dragevent" style="display: none;" onmousemove="mousemove(event)" onmouseup="mouseup(event)"></div>
   <div class="content">
-    <h1>Flip-flopping the color?</h1>
-    <p>Over one year ago someone posted a picture of a dress that millions of online viewers thought was gold and white, and millions thought was blue or black. Late last week, the optical illusion has launched back into the mainstream, when a Twitter user posted a picture of flip-flops that could be interpreted on the same spectrum.</p>
-    <p>What color do you think the flip-flops are? White and gold, or blue and black? Play with the slider below to see if you can switch to the other side. (And click on the dress to try with that image)</p>
     <div class="container">
       <img id="gold" class="image gold" class="image" src="flipflop_gold.png" style="opacity: 0">
       <img id="blue" class="image blue" class="image" src="flipflop_blue.png" style="opacity: 0">
@@ -30,15 +27,9 @@
         <a href="https://twitter.com/home?status=White%20and%20gold,%20or%20blue%20and%20black?%20Play%20with%20the%20colors%20at%20http%3A//www.dylanfreedman.com/flipflop/" target="blank_"><img src="twitter.png" title="Share on Twitter"></a>
         <a href="https://plus.google.com/share?url=http%3A//www.dylanfreedman.com/flipflop/" target="blank_"><img src="googleplus.png" title="Share on Google+"></a>
         <a href="mailto:?&body=http%3A//www.dylanfreedman.com/flipflop/" target="blank_">Email</a>
-        <a href="embed_instructions.html" target="blank_">Embed</a>
       </div>
       <div class="caption"><span id="caption-text">The flip-flops in question.</span> &copy; <a id="source" href="https://twitter.com/positivedemi/status/799346903112630272/photo/1" target="blank_">Twitter</a></div>
     </div>
-  <!--   <div class="container">
-      <img class="image gold" class="image" src="dress_gold.png" style="opacity: 0">
-      <img class="image blue" class="image" src="dress_blue.png" style="opacity: 0">
-      <img class="normal image" src="dress_normal.png">
-    </div> -->
     <div class="slider-bar">
       <div class="text">
         <div class="fancy left">
@@ -57,39 +48,8 @@
       <div class="blue-grad bar"></div>
       <div class="triangle">&#9660;</div>
     </div>
-    <button id="reset-button" class="reset" disabled="true" onclick="reset()">&mdash; RESET &mdash;</button>
-<!--     <h1>How does it work?</h1>
-    <p>The New York Times did an insightful piece on this the last time </p> -->
-    <h1>Change your mind?</h1>
-    <p>Take the poll below to indicate what colors you initially saw the flip-flops in, and if that choice flipped after playing with the slider.</p>
-  </div>
-  <div class="iframe">
-    <div class="iframe-block">
-      <iframe src="http://files.quizsnack.com/iframe/embed.html?hash=qh3wd0sm&width=250&height=370&wmode=transparent&t=1479867423&width=350&height=400" width="350" height="400" seamless="seamless" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
-    </div>
-  </div>
-  <div class="content" style="padding-top: 2em; padding-bottom: 4em;">
-    <h1>How does it work?</h1>
-    <p>The <a href="http://www.nytimes.com/interactive/2015/02/28/science/white-or-blue-dress.html" target="blank_">New York Times</a> published a piece analyzing how the dress illusion worked last year. The same principles apply here: essentially, the color can change depending on if you interpret the article of clothing to be in a blue-ish shadow or a yellow light. Your mind interprets the image and takes into account the lighting conditions, resulting in a different perceptions of color.</p>
-  </div>
-
-<div id="disqus_thread"></div>
-<script>
-
-var disqus_config = function () {
-this.page.url = 'http://www.dylanfreedman.com/flipflop/';
-this.page.identifier = 'flipflop';
-};
-
-(function() {
-var d = document, s = d.createElement('script');
-s.src = '//dylanfreedman.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
+    <button id="reset-button" class="reset" disabled="true" onclick="reset()" style="margin-bottom: 1.4em;">&mdash; RESET &mdash;</button>
+    <div class="copy-notice">&copy; <a href="http://www.dylanfreedman.com/flipflop" target="blank_">dylanfreedman.com</a></div class="copy-notice">
   <script src="interact.js"></script>
 
 </body>
