@@ -15,7 +15,7 @@ body {
   position: absolute;
   z-index: 2;
   box-shadow: 0 0 20px #9D9D9D;
-  width: 500px;
+  width: 300px;
 }
 
 .normal {
@@ -169,7 +169,7 @@ p {
 }
 
 .caption {
-    width: 500px;
+    width: 300px;
     margin-left: auto;
     margin-right: auto;
     text-align: right;
@@ -205,6 +205,36 @@ p {
   box-shadow: 0 0 10px Gainsboro;
   cursor: pointer;
   border: solid 1px Transparent;
+}
+
+.share {
+    width: 80px;
+    position: absolute;
+    top: 0;
+    right: -132px;
+    text-align: left;
+    opacity: 0.5;
+}
+
+.share:hover {
+  opacity: 1;
+}
+
+.share a {
+    color: Gray;
+    font-family: Arial, sans-serif;
+    display: block;
+    margin: 1em;
+}
+
+.share img {
+    width: 43px;
+    display: block;
+    opacity: 0.5;
+}
+
+.share img:hover {
+  opacity: 1;
 }
 
 .thumb:hover {
