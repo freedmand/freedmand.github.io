@@ -1,0 +1,57 @@
+.binary {
+    font-family: monospace;
+    margin-right: 1em;
+    font-size: 16px;
+    vertical-align: top;
+}
+
+.approx {
+    font-weight: bold;
+}
+
+.numerator {
+    font-style: italic;
+    color: #FF8B8B;
+}
+
+.div {
+    font-weight: Bold;
+    font-size: 1.2em;
+    color: Gray;
+}
+
+.denominator {
+    font-style: italic;
+    color: #8EAFFF;
+}
+
+.comparator {
+    font-weight: Bold;
+}
+
+.value {
+    font-family: monospace;
+    color: Gray;
+}
+
+.less {
+    color: Blue;
+}
+
+.greater {
+    color: Red;
+}
+
+#output {
+    display: table;
+}
+
+.output-row {
+    display: table-row;
+}
+
+.cell {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 0.2em;
+}
