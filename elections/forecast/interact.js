@@ -934,7 +934,7 @@ for (var k = 0; k < ev_sources.length; k++) {
   for (var i = 0; i <= 268; i++) {
     cum_sum += evs[source]['norm'][i];
     var log_sum = log(cum_sum);
-    if (log_sum !== undefined && (log_min === null || logged < log_min)) {
+    if (log_sum !== undefined && (log_min === null || log_sum < log_min)) {
       log_min = log_sum;
     }
     cum_sums.push(cum_sum);
@@ -942,18 +942,18 @@ for (var k = 0; k < ev_sources.length; k++) {
   }
   cum_sum = evs[source]['norm'][269];
   var log_sum = log(cum_sum);
-  if (log_sum !== undefined && (log_min === null || logged < log_min)) {
+  if (log_sum !== undefined && (log_min === null || log_sum < log_min)) {
     log_min = log_sum;
   }
   cum_sums.push(cum_sum);
-  log_cum_sums.push(cum_sum);
+  log_cum_sums.push(log_sum);
   var rev_cum_sums = [];
   var rev_log_cum_sums = [];
   cum_sum = 0.0;
   for (var i = 538; i >= 270; i--) {
     cum_sum += evs[source]['norm'][i];
     var log_sum = log(cum_sum);
-    if (log_sum !== undefined && (log_min === null || logged < log_min)) {
+    if (log_sum !== undefined && (log_min === null || log_sum < log_min)) {
       log_min = log_sum;
     }
     rev_cum_sums.push(cum_sum);
@@ -979,9 +979,73 @@ var log_disp = 0.01;
 ev_svg.setAttribute('width', ev_w);
 ev_svg.setAttribute('height', ev_h);
 
+var rect_transition = null;
+
+var rect_pending_transitions = [];
+
+function resetHeightTransition() {
+  rect_pending_transitions = [];
+}
+
+function collectHeightTransition(rect, height) {
+  rect_pending_transitions.push([rect, height]);
+}
+
+function startHeightTransition() {
+  var current_heights = [];
+  for (var i = 0; i < rect_pending_transitions.length; i++) {
+    current_heights.push(parseFloat(rect_pending_transitions[i][0].getAttribute('height')));
+  }
+  var percent = 0.0;
+  var reset = function() {
+    clearTimeout(rect_transition);
+    rect_transition = null;
+  }
+  if (rect_transition) {
+    reset();
+  }
+  var transition = function() {
+    percent += 0.1;
+    for (var i = 0; i < rect_pending_transitions.length; i++) {
+      var rect = rect_pending_transitions[i][0];
+      var new_height = current_heights[i] + percent * (rect_pending_transitions[i][1] - current_heights[i]);
+      if (new_height < 0) {
+        new_height = 0;
+      }
+      rect.setAttribute('height', new_height);
+      rect.setAttribute('y', ev_h - new_height - 15);
+    }
+    if (percent < 1) {
+      rect_transition = setTimeout(transition, 10);
+    } else {
+      for (var i = 0; i < rect_pending_transitions.length; i++) {
+        var rect = rect_pending_transitions[i][0];
+        var new_height = rect_pending_transitions[i][1];
+        rect.setAttribute('height', new_height);
+        rect.setAttribute('y', ev_h - new_height - 15);
+      }
+      reset();
+    }
+  };
+  transition();
+};
+
+
 function adjust(rect, height) {
   rect.setAttribute('y', ev_h - height - 15);
   rect.setAttribute('height', height);
+}
+
+function createTransparentBar(x) {
+  var rect = document.createElementNS(svg_spec, 'rect');
+  rect.setAttribute('data-i', x);
+  rect.setAttribute('x', (x + ev_bar / 2) / 539.0 * ev_w);
+  rect.setAttribute('width', 1.0 / 539.0 * ev_w);
+  rect.setAttribute('height', ev_h);
+  rect.setAttribute('y', 0);
+  rect.setAttribute('fill', 'Transparent');
+  rect.onmouseover = function() { console.log(x); };
+  return rect;
 }
 
 function createBar(x, height, color) {
@@ -989,31 +1053,133 @@ function createBar(x, height, color) {
   rect.setAttribute('data-i', x);
   rect.setAttribute('x', (x + ev_bar / 2) / 539.0 * ev_w);
   rect.setAttribute('width', ev_bar / 539.0 * ev_w);
-  rect.setAttribute('fill', color);
+  var color = (x - 269) / 270.0 * 9.0;
+  if (color < 0) {
+    color -= 18.0;
+  } else if (color > 0) {
+    color += 18.0;
+  }
+  rect.setAttribute('fill', majorityVotes.getColor(color).getCss());
   adjust(rect, height);
   return rect;
 }
 
+var horizAxes = document.createElementNS(svg_spec, 'g');
+
+function createAxis(y) {
+  var line = document.createElementNS(svg_spec, 'line');
+  line.setAttribute('x1', 0);
+  line.setAttribute('x2', ev_w);
+  line.setAttribute('y1', y);
+  line.setAttribute('y2', y);
+  line.setAttribute('stroke', 'Gray');
+  line.setAttribute('stroke-width', '1px');
+  horizAxes.appendChild(line);
+  return line;
+}
+
+var axes = []; // top-to-bottom
+var axesTimeout = null;
+
+var adjustAxes = function(destAxes) {
+  var removeAxes = [];
+  var addAxes = [];
+  var axesTransitions = [];
+  if (axes.length > destAxes.length) {
+    for (var i = axes.length - destAxes.length; i > 0; i--) {
+      // Add in transitions that end off-screen
+      destAxes.push(ev_h + 1);
+    }
+  } else if (destAxes.length > axes.length) {
+    for (var i = destAxes.length - axes.length; i > 0; i--) {
+      axes.push(createAxis(ev_h * 0.9));
+    }
+  }
+  for (var i = 0; i < Math.min(axes.length, destAxes.length); i++) {
+    axesTransitions.push([axes[i], parseFloat(axes[i].getAttribute('y1')), destAxes[i]]);
+  }
+  var percent = 0.0;
+  var done = false;
+  var reset = function() {
+    if (axesTimeout != null) {
+      clearTimeout(axesTimeout);
+      axesTimeout = null;
+    }
+  }
+  reset();
+  var adjustElem = function(elem, y, dest_y, perc) {
+    var new_y = y + (dest_y - y) * perc;
+    if (new_y < 0 || new_y > ev_h * 0.9) {
+      var idx = axes.indexOf(elem);
+      if (idx != -1) {
+        elem.parentNode.removeChild(elem);
+        axes.splice(idx, 1);
+      }
+    } else {
+      elem.setAttribute('y1', new_y);
+      elem.setAttribute('y2', new_y);
+    }
+  }
+  var transition = function() {
+    percent += 0.1;
+    if (percent >= 1.0) {
+      percent = 1;
+      done = true;
+    }
+    for (var i = 0; i < axesTransitions.length; i++) {
+      var elem = axesTransitions[i][0];
+      var origY = axesTransitions[i][1];
+      var destY = axesTransitions[i][2];
+      adjustElem(elem, origY, destY, percent);
+    }
+    if (!done) {
+      axesTimeout = setTimeout(transition, 10);
+    } else {
+      reset();
+    }
+  };
+  transition();
+}
+
 var ev_bars = {};
 
-var adjustEV = function(source, cumulative, log) {
+var adjustEV = function(source, cumulative, logged) {
+  resetHeightTransition();
+  var min, max;
+  if (logged) {
+    min = evs[source][(cumulative ? 'log_cum_min' : 'log_norm_min')];
+    max = evs[source][(cumulative ? 'log_cum_max' : 'log_norm_max')];
+  }
+  var destAxes = [];
+  for (var i = 0.00000001; i < 100000; i *= 10) {
+    if (log(i) >= min && log(i) <= max) {
+      destAxes.push((log(i) - min) / (max - min) * ev_h * 0.9);
+      console.log(i);
+    }
+  }
+  if (axes.length == 0) {
+    for (var i = 0; i < destAxes.length; i++) {
+      axes.push(createAxis(destAxes[i]));
+    }
+  } else {
+    adjustAxes(destAxes);
+  }
   for (var i = 0; i <= 538; i++) {
     var bar = ev_bars[i];
     var point;
-    if (log) {
-      var min = evs[source][(cumulative ? 'log_cum_min' : 'log_norm_min')];
-      var max = evs[source][(cumulative ? 'log_cum_max' : 'log_norm_max')];
+    if (logged) {
       var datum = evs[source][(cumulative ? 'log_cum_sum' : 'log')][i];
       if (datum === undefined) {
         point = 0;
       } else {
-        point = (datum - min) / (max - min) * (1 - log_disp) + log_disp;
+        point = (datum - min) / (max - min) ;
       }
     } else {
       point = evs[source][(cumulative ? 'cum_sum' : 'norm')][i] / evs[source][(cumulative ? 'cum_max' : 'norm_max')];
     }
-    adjust(bar, ev_h * 0.9 * point);
+    collectHeightTransition(bar, ev_h * 0.9 * point);
   }
+  startHeightTransition();
 }
 
 for (var i = 0; i <= 538; i++) {
@@ -1022,6 +1188,12 @@ for (var i = 0; i <= 538; i++) {
   ev_bars[i] = rect;
   ev_svg.appendChild(rect);
 }
+
+for (var i = 0; i <= 538; i++) {
+  ev_svg.appendChild(createTransparentBar(i));
+}
+
+ev_svg.appendChild(horizAxes);
 
 var ev_buttons = {};
 var buttonContainer = document.createElement('div');
