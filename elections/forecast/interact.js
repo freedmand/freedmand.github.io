@@ -972,6 +972,7 @@ for (var k = 0; k < ev_sources.length; k++) {
 
 var ev_svg = document.createElementNS(svg_spec, 'svg');
 var ev_w = 800;
+var text_offset = 70;
 var ev_h = 300;
 var ev_bar = 1; // what percentage of each hist bar to fill
 var log_disp = 0.01;
@@ -991,6 +992,18 @@ function collectHeightTransition(rect, height) {
   rect_pending_transitions.push([rect, height]);
 }
 
+function getHeight(perc) {
+  return perc * ev_h * 0.9;
+}
+
+function getY(height) {
+  return ev_h - height - 15;
+}
+
+function invY(y) {
+  return (ev_h - y - 15) / ev_h / 0.9;
+}
+
 function startHeightTransition() {
   var current_heights = [];
   for (var i = 0; i < rect_pending_transitions.length; i++) {
@@ -1008,21 +1021,22 @@ function startHeightTransition() {
     percent += 0.1;
     for (var i = 0; i < rect_pending_transitions.length; i++) {
       var rect = rect_pending_transitions[i][0];
-      var new_height = current_heights[i] + percent * (rect_pending_transitions[i][1] - current_heights[i]);
+      var destHeight = getHeight(rect_pending_transitions[i][1]);
+      var new_height = current_heights[i] + percent * (destHeight - current_heights[i]);
       if (new_height < 0) {
         new_height = 0;
       }
       rect.setAttribute('height', new_height);
-      rect.setAttribute('y', ev_h - new_height - 15);
+      rect.setAttribute('y', getY(new_height));
     }
     if (percent < 1) {
       rect_transition = setTimeout(transition, 10);
     } else {
       for (var i = 0; i < rect_pending_transitions.length; i++) {
         var rect = rect_pending_transitions[i][0];
-        var new_height = rect_pending_transitions[i][1];
+        var new_height = getHeight(rect_pending_transitions[i][1]);
         rect.setAttribute('height', new_height);
-        rect.setAttribute('y', ev_h - new_height - 15);
+        rect.setAttribute('y', getY(new_height));
       }
       reset();
     }
@@ -1032,27 +1046,36 @@ function startHeightTransition() {
 
 
 function adjust(rect, height) {
-  rect.setAttribute('y', ev_h - height - 15);
-  rect.setAttribute('height', height);
+  var new_height = getHeight(height);
+  rect.setAttribute('y', getY(new_height));
+  rect.setAttribute('height', new_height);
+}
+
+var getWidth = function() {
+  return ev_w - text_offset;
+}
+
+var placeX = function(x) {
+  return (x + ev_bar / 2) / 539.0 * getWidth() + text_offset;
 }
 
 function createTransparentBar(x) {
   var rect = document.createElementNS(svg_spec, 'rect');
   rect.setAttribute('data-i', x);
-  rect.setAttribute('x', (x + ev_bar / 2) / 539.0 * ev_w);
-  rect.setAttribute('width', 1.0 / 539.0 * ev_w);
+  rect.setAttribute('x', placeX(x));
+  rect.setAttribute('width', ev_bar / 539.0 * getWidth());
   rect.setAttribute('height', ev_h);
   rect.setAttribute('y', 0);
   rect.setAttribute('fill', 'Transparent');
-  rect.onmouseover = function() { console.log(x); };
+  // rect.onmouseover = function() { console.log(x); };
   return rect;
 }
 
 function createBar(x, height, color) {
   var rect = document.createElementNS(svg_spec, 'rect');
   rect.setAttribute('data-i', x);
-  rect.setAttribute('x', (x + ev_bar / 2) / 539.0 * ev_w);
-  rect.setAttribute('width', ev_bar / 539.0 * ev_w);
+  rect.setAttribute('x', placeX(x));
+  rect.setAttribute('width', ev_bar / 539.0 * getWidth());
   var color = (x - 269) / 270.0 * 9.0;
   if (color < 0) {
     color -= 18.0;
@@ -1068,35 +1091,51 @@ var horizAxes = document.createElementNS(svg_spec, 'g');
 
 function createAxis(y) {
   var line = document.createElementNS(svg_spec, 'line');
-  line.setAttribute('x1', 0);
+  line.setAttribute('x1', text_offset);
   line.setAttribute('x2', ev_w);
-  line.setAttribute('y1', y);
-  line.setAttribute('y2', y);
+  line.setAttribute('y1', getY(getHeight(y)));
+  line.setAttribute('y2', getY(getHeight(y)));
   line.setAttribute('stroke', 'Gray');
   line.setAttribute('stroke-width', '1px');
+  line.style.pointerEvents = 'none';
   horizAxes.appendChild(line);
   return line;
 }
 
+function createAxisText(y, content) {
+  var text = document.createElementNS(svg_spec, 'text');
+  text.setAttribute('x', text_offset - 5);
+  text.setAttribute('y', getY(getHeight(y)));
+  text.setAttribute('text-anchor', 'end');
+  text.setAttribute('dominant-baseline', 'middle');
+  text.textContent = content;
+  horizAxes.appendChild(text);
+  return text;
+}
+
 var axes = []; // top-to-bottom
+var textAxes = [];
 var axesTimeout = null;
 
-var adjustAxes = function(destAxes) {
+var adjustAxes = function(destAxes, destTexts) {
   var removeAxes = [];
   var addAxes = [];
   var axesTransitions = [];
   if (axes.length > destAxes.length) {
     for (var i = axes.length - destAxes.length; i > 0; i--) {
       // Add in transitions that end off-screen
-      destAxes.push(ev_h + 1);
+      destAxes.push(-.1);
+      destTexts.push('');
     }
   } else if (destAxes.length > axes.length) {
     for (var i = destAxes.length - axes.length; i > 0; i--) {
-      axes.push(createAxis(ev_h * 0.9));
+      axes.push(createAxis(0));
+      textAxes.push(createAxisText(0, ''));
     }
   }
   for (var i = 0; i < Math.min(axes.length, destAxes.length); i++) {
-    axesTransitions.push([axes[i], parseFloat(axes[i].getAttribute('y1')), destAxes[i]]);
+    textAxes[i].textContent = destTexts[i];
+    axesTransitions.push([axes[i], parseFloat(axes[i].getAttribute('y1')), destAxes[i], textAxes[i]]);
   }
   var percent = 0.0;
   var done = false;
@@ -1107,17 +1146,21 @@ var adjustAxes = function(destAxes) {
     }
   }
   reset();
-  var adjustElem = function(elem, y, dest_y, perc) {
+  var adjustElem = function(elem, textElem, y, dest_y, perc) {
     var new_y = y + (dest_y - y) * perc;
-    if (new_y < 0 || new_y > ev_h * 0.9) {
+    var inv = invY(new_y);
+    if (inv < 0 || inv > 1) {
       var idx = axes.indexOf(elem);
       if (idx != -1) {
         elem.parentNode.removeChild(elem);
+        textElem.parentNode.removeChild(textElem);
         axes.splice(idx, 1);
+        textAxes.splice(idx, 1);
       }
     } else {
       elem.setAttribute('y1', new_y);
       elem.setAttribute('y2', new_y);
+      textElem.setAttribute('y', new_y);
     }
   }
   var transition = function() {
@@ -1129,8 +1172,9 @@ var adjustAxes = function(destAxes) {
     for (var i = 0; i < axesTransitions.length; i++) {
       var elem = axesTransitions[i][0];
       var origY = axesTransitions[i][1];
-      var destY = axesTransitions[i][2];
-      adjustElem(elem, origY, destY, percent);
+      var destY = getY(getHeight(axesTransitions[i][2]));
+      var textElem = axesTransitions[i][3];
+      adjustElem(elem, textElem, origY, destY, percent);
     }
     if (!done) {
       axesTimeout = setTimeout(transition, 10);
@@ -1149,20 +1193,92 @@ var adjustEV = function(source, cumulative, logged) {
   if (logged) {
     min = evs[source][(cumulative ? 'log_cum_min' : 'log_norm_min')];
     max = evs[source][(cumulative ? 'log_cum_max' : 'log_norm_max')];
+  } else {
+    min = evs[source][(cumulative ? 'cum_min' : 'norm_min')] | 0;
+    max = evs[source][(cumulative ? 'cum_max' : 'norm_max')];
   }
   var destAxes = [];
-  for (var i = 0.00000001; i < 100000; i *= 10) {
-    if (log(i) >= min && log(i) <= max) {
-      destAxes.push((log(i) - min) / (max - min) * ev_h * 0.9);
-      console.log(i);
+  var destTexts = [];
+  var i = 1;
+  var j = 0;
+  var placePoint = function(p) {
+    var scaled = (p - min) / (max - min);
+    if (logged) {
+      return scaled * 0.98 + 0.02;
+    } else {
+      return scaled;
     }
   }
+  var base10 = function(j) {
+    j += 2; // make into percent.
+    if (j >= 0) {
+      var result = '1';
+      while (j > 0) {
+        result += '0';
+        j--;
+      }
+      return result + '%';
+    } else {
+      var result = '0.';
+      while (j < -1) {
+        result += '0';
+        j++;
+      }
+      return result + '1%';
+    }
+  }
+  if (!logged) {
+    var formatThousands = function(i) {
+      var stripZeros = function(str) {
+        while (str.charAt(str.length - 1) == '0') {
+          str = str.substring(0, str.length - 1);
+        }
+        return str;
+      }
+      var s = '' + i;
+      if (s.length == 1) {
+        return '0.' + s + '%';
+      } else {
+        var latter = stripZeros(s.substring(s.length - 1));
+        return s.substring(0, s.length - 1) + (latter.length > 0 ? '.' + latter : '') + '%';
+      }
+    }
+    var divisions = [1, 2, 5, 10, 20, 25, 50, 100, 200]; // out of 1000
+    var best = null;
+    var best_div = null;
+    for (var i = 0; i < divisions.length; i++) {
+      var splits = Math.floor(max * 1000 / divisions[i]);
+      var test = Math.abs(splits - 0.5 - 5);
+      if (best_div == null || test < best_div) {
+        best_div = test;
+        best = divisions[i];
+      }
+    }
+    for (var i = best; i < max * 1000; i += best) {
+      destAxes.splice(0, 0, i / 1000 / max);
+      destTexts.splice(0, 0, formatThousands(i));
+    }
+  } else {
+    var insertIfInBounds = function(i, j) {
+      if (log(i) >= min && log(i) <= max) {
+        destAxes.push(placePoint(log(i)));
+        destTexts.push(base10(j));
+      }
+    }
+    while (log(i) >= min) {
+      insertIfInBounds(i, j);
+      i /= 10;
+      j--;
+    }
+  }
+  console.log(destAxes);
   if (axes.length == 0) {
     for (var i = 0; i < destAxes.length; i++) {
       axes.push(createAxis(destAxes[i]));
+      textAxes.push(createAxisText(destAxes[i], destTexts[i]));
     }
   } else {
-    adjustAxes(destAxes);
+    adjustAxes(destAxes, destTexts);
   }
   for (var i = 0; i <= 538; i++) {
     var bar = ev_bars[i];
@@ -1172,12 +1288,12 @@ var adjustEV = function(source, cumulative, logged) {
       if (datum === undefined) {
         point = 0;
       } else {
-        point = (datum - min) / (max - min) ;
+        point = placePoint(datum);
       }
     } else {
       point = evs[source][(cumulative ? 'cum_sum' : 'norm')][i] / evs[source][(cumulative ? 'cum_max' : 'norm_max')];
     }
-    collectHeightTransition(bar, ev_h * 0.9 * point);
+    collectHeightTransition(bar, point);
   }
   startHeightTransition();
 }
