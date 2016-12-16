@@ -878,7 +878,7 @@ var log = function(x) {
   return Math.log(x);
 }
 
-var all_source = 'All';
+var all_source = 'All models combined';
 var ev_sources = Object.keys(evs);
 ev_sources.unshift(all_source);
 evs[all_source] = {};
@@ -901,7 +901,7 @@ for (var k = 0; k < ev_sources.length; k++) {
   var log_max = null;
   for (var i = 0; i <= 538; i++) {
     var normed;
-    if (source == 'All') {
+    if (source == all_source) {
       var norm_sum = 0.0;
       for (var j = 1; j < ev_sources.length; j++) {
         norm_sum += evs[ev_sources[j]]['data'][i] / evs[ev_sources[j]]['sum'];
@@ -972,8 +972,9 @@ for (var k = 0; k < ev_sources.length; k++) {
 
 var ev_svg = document.createElementNS(svg_spec, 'svg');
 var ev_w = 800;
-var text_offset = 70;
-var ev_h = 300;
+var text_offset = 90;
+var ev_h = 400;
+var vert_text_offset = 50;
 var ev_bar = 1; // what percentage of each hist bar to fill
 var log_disp = 0.01;
 
@@ -993,15 +994,15 @@ function collectHeightTransition(rect, height) {
 }
 
 function getHeight(perc) {
-  return perc * ev_h * 0.9;
+  return perc * (ev_h - vert_text_offset) * 0.9;
 }
 
 function getY(height) {
-  return ev_h - height - 15;
+  return ev_h - vert_text_offset - height - 15;
 }
 
 function invY(y) {
-  return (ev_h - y - 15) / ev_h / 0.9;
+  return (ev_h - vert_text_offset - y - 15) / ev_h / 0.9;
 }
 
 function startHeightTransition() {
@@ -1071,18 +1072,22 @@ function createTransparentBar(x) {
   return rect;
 }
 
-function createBar(x, height, color) {
-  var rect = document.createElementNS(svg_spec, 'rect');
-  rect.setAttribute('data-i', x);
-  rect.setAttribute('x', placeX(x));
-  rect.setAttribute('width', ev_bar / 539.0 * getWidth());
+function getXColor(x) {
   var color = (x - 269) / 270.0 * 9.0;
   if (color < 0) {
     color -= 18.0;
   } else if (color > 0) {
     color += 18.0;
   }
-  rect.setAttribute('fill', majorityVotes.getColor(color).getCss());
+  return majorityVotes.getColor(color).getCss();
+}
+
+function createBar(x, height, color) {
+  var rect = document.createElementNS(svg_spec, 'rect');
+  rect.setAttribute('data-i', x);
+  rect.setAttribute('x', placeX(x));
+  rect.setAttribute('width', ev_bar / 539.0 * getWidth());
+  rect.setAttribute('fill', getXColor(x));
   adjust(rect, height);
   return rect;
 }
@@ -1096,6 +1101,7 @@ function createAxis(y) {
   line.setAttribute('y1', getY(getHeight(y)));
   line.setAttribute('y2', getY(getHeight(y)));
   line.setAttribute('stroke', 'Gray');
+  line.setAttribute('stroke-opacity', 0.3);
   line.setAttribute('stroke-width', '1px');
   line.style.pointerEvents = 'none';
   horizAxes.appendChild(line);
@@ -1108,10 +1114,75 @@ function createAxisText(y, content) {
   text.setAttribute('y', getY(getHeight(y)));
   text.setAttribute('text-anchor', 'end');
   text.setAttribute('dominant-baseline', 'middle');
+  text.setAttribute('font-family', 'Arial, sans-serif');
   text.textContent = content;
   horizAxes.appendChild(text);
   return text;
 }
+
+function createXAxisText(x, content) {
+  var text = document.createElementNS(svg_spec, 'text');
+  text.setAttribute('x', placeX(x));
+  text.setAttribute('y', getY(0) + 8);
+  text.setAttribute('text-anchor', 'middle');
+  text.setAttribute('font-size', '16px');
+  text.setAttribute('dominant-baseline', 'hanging');
+  text.setAttribute('font-family', 'Arial, sans-serif');
+  text.setAttribute('fill', getXColor(x));
+  text.textContent = content;
+  return text;
+}
+
+function createGridLine(x1, x2, y1, y2) {
+  var line = document.createElementNS(svg_spec, 'line');
+  line.setAttribute('x1', x1);
+  line.setAttribute('x2', x2);
+  line.setAttribute('y1', y1);
+  line.setAttribute('y2', y2);
+  line.setAttribute('stroke-width', '1');
+  line.setAttribute('stroke', 'gray');
+  return line;
+}
+
+function createRectPanes(x, y, width, height, color) {
+  // var rects = [];
+  // for (var i = 1; i <= 27; i++) {
+  //   var rect = document.createElementNS(svg_spec, 'rect');
+  //   rect.setAttribute('x', x + width / 27 * (i - 1));
+  //   rect.setAttribute('y', y);
+  //   rect.setAttribute('width', width / 27);
+  //   rect.setAttribute('height', height);
+  //   if (color < 0) {
+  //     rect.setAttribute('fill', majorityVotes.getColor(-28 - color / 27 * i).getCss());
+  //   } else {
+  //     rect.setAttribute('fill', majorityVotes.getColor(color / 27 * i).getCss());
+  //   }
+  //   rect.setAttribute('opacity', 0.1);
+  //   rects.push(rect);
+  // }
+  // return rects;
+  return [];
+}
+
+function appendChildren(elem, children) {
+  for (var i = 0; i < children.length; i++) {
+    elem.appendChild(children[i]);
+  }
+}
+
+ev_svg.appendChild(createXAxisText(38, '500'));
+ev_svg.appendChild(createXAxisText(138, '400'));
+ev_svg.appendChild(createXAxisText(238, '300'));
+ev_svg.appendChild(createXAxisText(269, '269'));
+ev_svg.appendChild(createXAxisText(300, '300'));
+ev_svg.appendChild(createXAxisText(400, '400'));
+ev_svg.appendChild(createXAxisText(500, '500'));
+
+ev_svg.appendChild(createGridLine(text_offset, ev_w, getY(0), getY(0)));
+ev_svg.appendChild(createGridLine(text_offset, text_offset, getY(0), 0));
+
+appendChildren(ev_svg, createRectPanes(placeX(0), 0, placeX(269) - placeX(0), getY(getHeight(0)), -27));
+appendChildren(ev_svg, createRectPanes(placeX(270), 0, placeX(538) - placeX(270), getY(getHeight(0)), 27));
 
 var axes = []; // top-to-bottom
 var textAxes = [];
