@@ -7,6 +7,19 @@ body {
   margin: 0;
 }
 
+.byline {
+  color: #424242;
+  font-style: italic;
+}
+
+.date {
+  font-family: Arial, sans-serif;
+  text-transform: uppercase;
+  font-weight: Bold;
+  font-size: 14px;
+  margin-left: 1em;
+}
+
 @media screen and (max-width: 1200px) {
   .cell {
     display: table-row !important;
