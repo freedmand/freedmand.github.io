@@ -12,6 +12,14 @@ body {
   font-style: italic;
 }
 
+.quote {
+  font-size: 0.85em;
+  border-left: solid #e85d58 3px;
+  opacity: 0.8;
+  padding-left: 2em;
+  margin-left: 3em;
+}
+
 .date {
   font-family: Arial, sans-serif;
   text-transform: uppercase;
