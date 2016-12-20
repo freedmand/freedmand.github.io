@@ -107,9 +107,9 @@
     <p>Play with the interactive map below to explore the differences between the election outcomes and several popular political forecasts and polls.</p>
   </div>
 <!-- Begin visualization -->
-<div id="tooltip"></div>
+<div id="tooltip" class="tooltip"></div>
 <div class="table-row">
-<div class="table">
+<div class="table" id="table1">
 <div class="graphic">
 <div class="cell">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -594,7 +594,8 @@
 </div>
 </div>
 <!-- End visualization -->
-<!--   <div class="content">
+  <div id="ev_tooltip" class="tooltip" style="visibility: hidden;"></div>
+  <div class="content">
     <div class="subheader">
       Electoral vote distributions
     </div>
@@ -602,14 +603,15 @@
   </div>
 <div class="graphic2">
 <div class="table-row">
-<div class="table">
+<div class="table" id="table2">
 <div class="graphic">
 <div class="cell" id="ev_svg">
+  <div class="title">Probability of winning electoral college votes</div>
 </div>
 </div>
 </div>
 </div>
-</div> -->
+</div>
   <div class="content">
     <div class="subheader">
       How does the interactive graphic work?
@@ -625,6 +627,8 @@
     <p>The reported aggregate score &ldquo;All models combined&rdquo; is an average of each forecast result, treating each prediction on a 7-point scale.</p>
     <p>Daily Kos and YouGov do not have additional data for the sub-districts of Maine and Nebraska, the two states which give a portion of their electoral votes to Congressional districts. For these two sources, it is assumed sub-districts have the same prediction as the entire state.</p>
     <p>As of publication, the Associated Press has yet to call the final election result for Michigan, though it is sitting 13,000 votes in favor of Trump with a supposed 100% of the votes in. This model assumes that Michigan goes to Trump in the final election outcome.</p>
+    <br>
+    <p>The Electoral vote distribution graphic uses data from 538, Huffington Post, the New York Times, and PredictWise, as these sources were the only to make their simulation data public on their website or available upon request.
   </div>
 
 <script src="interact.js"></script>

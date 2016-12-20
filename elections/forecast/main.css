@@ -95,9 +95,9 @@ body {
   display: table;
 }
 
-#tooltip {
+.tooltip {
   display: inline-block;
-  position: absolute;
+  position: fixed;
   visibility: hidden;
   background: #FBFBFB;
   padding: 0.5em 1em;
@@ -318,3 +318,64 @@ span.outcome_text {font-weight: bold;margin-left: 0.4em;margin-right: 0.5em;}
     column-span: all;
 }
 
+#ev_tooltip {
+  width: 250px;
+}
+
+#ev_tooltip div.chance {
+    font-size: 2em;
+    color: Black;
+    text-shadow: 2px 2px 0px #c3c3c3;
+    margin-bottom: 0.4em;
+}
+
+#ev_tooltip div {
+    font-size: 1.2em;
+    color: Gray;
+    margin-bottom: 0.1em;
+}
+
+#ev_tooltip span.candidate {
+    font-weight: Bold;
+    margin-right: 0.3em;
+}
+
+#ev_tooltip div.ev_table {
+    display: table;
+    font-size: 0.8em;
+}
+
+.ev_row {
+    display: table-row;
+}
+
+.ev_cell {
+    display: table-cell;
+}
+
+.ev_source {
+    text-align: right;
+    padding-right: 0.5em;
+    font-weight: Bold;
+    color: Black;
+}
+
+#ev_tooltip div.ev_perc {
+    color: Black;
+}
+
+#ev_tooltip div.actual-outcome {
+    text-transform: uppercase;
+    font-size: 0.8em;
+    font-weight: BOLD;
+    color: #565656;
+    letter-spacing: 1.2;
+    margin-bottom: 0.5em;
+    text-shadow: 0 0 2px #c7c7c7;
+}
+
+.title {
+    text-align: center;
+    padding-left: 5em;
+    padding-bottom: 0.5em;
+}
