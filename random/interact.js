@@ -35,7 +35,7 @@ function process(response) {
   document.getElementById('results-text').textContent = 'Total votes cast: ' + total;
 }
 
-var recaptchaResponse = null;
+recaptchaResponse = null;
 
 document.getElementById('main-form').onsubmit = function(evt) {
   console.log(this);
