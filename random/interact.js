@@ -39,4 +39,6 @@ document.getElementById('main-form').onsubmit = function(evt) {
   console.log(this);
   console.log(evt);
   evt.preventDefault();
+  console.log(document.activeElement.textContent);
+  return false;
 }
