@@ -34,3 +34,7 @@ function process(response) {
   hist.className = 'histogram finished';
   document.getElementById('results-text').textContent = 'Total votes cast: ' + total;
 }
+
+document.getElementById('main-form').onsubmit = function() {
+  console.log(this);
+}

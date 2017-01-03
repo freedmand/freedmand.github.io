@@ -6,29 +6,31 @@
   <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
-  <div class="container">
-    <div class="question">
-      Pick a number from 1 to 10
+  <form id="main-form">
+    <div class="container">
+      <div class="question">
+        Pick a number from 1 to 10
+      </div>
+      <div class="g-recaptcha" data-sitekey="6LfAYhAUAAAAAE7iGZfaToyCpwh2R13k_bKC8cM4"></div>
     </div>
-  </div>
-  <div class="numbers">
-    <span class="number" onclick="submit(1)">1</span>
-    <span class="number" onclick="submit(2)">2</span>
-    <span class="number" onclick="submit(3)">3</span>
-    <span class="number" onclick="submit(4)">4</span>
-    <span class="number" onclick="submit(5)">5</span>
-    <span class="number" onclick="submit(6)">6</span>
-    <span class="number" onclick="submit(7)">7</span>
-    <span class="number" onclick="submit(8)">8</span>
-    <span class="number" onclick="submit(9)">9</span>
-    <span class="number" onclick="submit(10)">10</span>
-  </div>
-  <div class="container">
-    <div class="g-recaptcha" data-sitekey="6LfAYhAUAAAAAE7iGZfaToyCpwh2R13k_bKC8cM4"></div>
-    <div class="results-text" id="results-text">
-      Click on a number to view results
+    <div class="numbers">
+      <button type="submit" class="number">1</span>
+      <button type="submit" class="number">2</span>
+      <button type="submit" class="number">3</span>
+      <button type="submit" class="number">4</span>
+      <button type="submit" class="number">5</span>
+      <button type="submit" class="number">6</span>
+      <button type="submit" class="number">7</span>
+      <button type="submit" class="number">8</span>
+      <button type="submit" class="number">9</span>
+      <button type="submit" class="number">10</span>
     </div>
-  </div>
+    <div class="container">
+      <div class="results-text" id="results-text">
+        Click on a number to view results
+      </div>
+    </div>
+  </form>
   <div class="histogram" id="hist">
     <div class="bar" style="left:0%;"></div>
     <div class="bar" style="left:10%;"></div>
