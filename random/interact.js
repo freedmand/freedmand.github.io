@@ -35,6 +35,8 @@ function process(response) {
   document.getElementById('results-text').textContent = 'Total votes cast: ' + total;
 }
 
-document.getElementById('main-form').onsubmit = function() {
+document.getElementById('main-form').onsubmit = function(evt) {
   console.log(this);
+  console.log(evt);
+  evt.preventDefault();
 }
