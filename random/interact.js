@@ -11,6 +11,39 @@ function submit() {
   }
 }
 
+var tooltip = document.getElementById('tooltip');
+
+function populateTooltip(number, votes, percent) {
+  tooltip.children[0].textContent = number;
+  tooltip.children[1].textContent = votes + ' vote' + (votes != 1 ? 's' : '') + ' cast';
+  tooltip.children[2].textContent = (percent * 100).toPrecision(3) + '% of vote';
+}
+
+function positionTooltip(x, y) {
+  tooltip.style.display = 'block';
+  var bb = tooltip.getBoundingClientRect();
+  var width = window.innerWidth
+  || document.documentElement.clientWidth
+  || document.body.clientWidth;
+  var height = window.innerHeight
+  || document.documentElement.clientHeight
+  || document.body.clientHeight;
+  if (x + bb.width > width) {
+    tooltip.style.left = '' + (x - bb.width) + 'px';
+  } else {
+    tooltip.style.left = '' + x + 'px';
+  }
+  if (y + bb.height > height) {
+    tooltip.style.top = '' + (y - bb.height) + 'px';
+  } else {
+    tooltip.style.top = '' + y + 'px';
+  }
+}
+
+function hideTooltip() {
+  tooltip.style.display = 'none';
+}
+
 function process(response) {
   var split = response.substring(1, response.length - 1).split(',');
   var result = [];
@@ -20,7 +53,7 @@ function process(response) {
     result.push(num);
     total += num;
   }
-  var total_height = 400;
+  var total_height = 800;
   var hist = document.getElementById('hist');
   var children = hist.children;
   for (var i = 0; i < 10; i++) {
@@ -30,6 +63,12 @@ function process(response) {
       height = 2;
     }
     children[i].style.height = '' + height + 'px';
+    children[i].onmouseover = function(e) {
+      populateTooltip(i + 1, result[i], result[i] / total);
+    }
+    children[i].onmousemove = function(e) {
+      positionTooltip(e.clientX, e.clientY);
+    }
   }
   hist.className = 'histogram finished';
   document.getElementById('results-text').textContent = 'Total votes cast: ' + total;
@@ -65,3 +104,6 @@ function recaptchaCallback(response) {
     submit();
   }
 }
+
+positionTooltip(50, 50);
+populateTooltip(3, 238, .387234);

@@ -83,13 +83,31 @@ body {
 }
 
 .results-text {
-    font-size: 1.5em;
-    margin-top: 2em;
-    color: Gray;
+  font-size: 1.5em;
+  margin-top: 2em;
+  color: Gray;
 }
 
 .recaptcha {
-    margin-top: 2em;
-    border-top: solid 1px Gray;
-    padding-top: 2em;
+  margin-top: 2em;
+  border-top: solid 1px Gray;
+  padding-top: 2em;
+  height: 78px;
+}
+
+.tooltip {
+  position: absolute;
+  background: rgba(29, 29, 29, 0.71);
+  color: White;
+  padding: 1em 2em;
+  border-radius: 5px;
+}
+
+.tooltip-number {
+  font-size: 3em;
+  border-bottom: solid 2px White;
+  margin-bottom: 0.3em;
+  padding: 0.1em 0;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.16);
 }
