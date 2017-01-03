@@ -40,6 +40,7 @@ activeNumber = null;
 
 document.getElementById('main-form').onsubmit = function(evt) {
   var num = document.activeElement.textContent.trim();
+  document.getElementById('recaptcha').style.visibility = 'visible';
   activeNumber = num;
   var numbers = document.getElementById('numbers').children;
   for (var i = 0; i < numbers.length; i++) {

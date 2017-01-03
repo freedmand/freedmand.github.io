@@ -87,3 +87,9 @@ body {
     margin-top: 2em;
     color: Gray;
 }
+
+.recaptcha {
+    margin-top: 2em;
+    border-top: solid 1px Gray;
+    padding-top: 2em;
+}
