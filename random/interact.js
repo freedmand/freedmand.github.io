@@ -1,8 +1,8 @@
-function submit(number) {
-  var parsed = parseInt(number);
+function submit() {
+  var parsed = parseInt(activeNumber);
   if (parsed && parsed >= 1 && parsed <= 10) {
     var r = new XMLHttpRequest();
-    r.open("POST", "http://demo-gmpvvl.webscript.io/script?number=" + parsed, true);
+    r.open("POST", "http://demo-gmpvvl.webscript.io/script?number=" + parsed + '&r=' + recaptchaResponse, true);
     r.onreadystatechange = function () {
       if (r.readyState != 4 || r.status != 200) return;
       process(r.responseText);
@@ -36,15 +36,31 @@ function process(response) {
 }
 
 recaptchaResponse = null;
+activeNumber = null;
 
 document.getElementById('main-form').onsubmit = function(evt) {
-  console.log(this);
-  console.log(evt);
+  var num = document.activeElement.textContent.trim();
+  activeNumber = num;
+  var numbers = document.getElementById('numbers').children;
+  for (var i = 0; i < numbers.length; i++) {
+    if (numbers[i].textContent.trim() == num) {
+      numbers[i].className = 'number active';
+    } else {
+      numbers[i].className = 'number';
+    }
+  }
+  if (recaptchaResponse == null) {
+    document.getElementById('results-text').textContent = 'Verify you are human to proceed';
+    return false;
+  }
   evt.preventDefault();
-  console.log(document.activeElement.textContent);
+  submit();
   return false;
 }
 
 function recaptchaCallback(response) {
   recaptchaResponse = response;
+  if (activeNumber != null) {
+    submit();
+  }
 }
