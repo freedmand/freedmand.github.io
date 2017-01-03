@@ -2,12 +2,12 @@ function submit() {
   var parsed = parseInt(activeNumber);
   if (parsed && parsed >= 1 && parsed <= 10) {
     var r = new XMLHttpRequest();
-    r.open("POST", "http://demo-gmpvvl.webscript.io/script?number=" + parsed + '&r=' + recaptchaResponse, true);
+    r.open("POST", "http://demo-gmpvvl.webscript.io/script?number=" + parsed, true);
     r.onreadystatechange = function () {
       if (r.readyState != 4 || r.status != 200) return;
       process(r.responseText);
     };
-    r.send();
+    r.send(recaptchaResponse);
   }
 }
 
