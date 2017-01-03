@@ -63,11 +63,16 @@ function process(response) {
       height = 2;
     }
     children[i].style.height = '' + height + 'px';
-    children[i].onmouseover = function(e) {
-      populateTooltip(i + 1, result[i], result[i] / total);
-    }
+    children[i].onmouseover = function(j, r, t) {
+      return function(e) {
+        populateTooltip(j + 1, r, r / t);
+      }
+    }(i, result[i], total);
     children[i].onmousemove = function(e) {
-      positionTooltip(e.clientX, e.clientY);
+      positionTooltip(e.pageX, e.pageY);
+    }
+    children[i].onmouseout = function() {
+      hideTooltip();
     }
   }
   hist.className = 'histogram finished';
@@ -104,6 +109,3 @@ function recaptchaCallback(response) {
     submit();
   }
 }
-
-positionTooltip(50, 50);
-populateTooltip(3, 238, .387234);

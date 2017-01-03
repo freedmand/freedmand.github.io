@@ -3,6 +3,7 @@ body {
   margin: 0;
   padding: 0;
   background: #f0fcff;
+  padding-bottom: 2em;
 }
 
 .container {
@@ -101,6 +102,8 @@ body {
   color: White;
   padding: 1em 2em;
   border-radius: 5px;
+  z-index: 4;
+  pointer-events: none;
 }
 
 .tooltip-number {
