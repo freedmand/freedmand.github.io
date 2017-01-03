@@ -53,12 +53,18 @@ function process(response) {
     result.push(num);
     total += num;
   }
-  var total_height = 800;
+  var max_height = 250;
+  var max = 0;
+  for (var i = 0; i < 10; i++) {
+    if (result[i] > max) {
+      max = result[i];
+    }
+  }
   var hist = document.getElementById('hist');
   var children = hist.children;
   for (var i = 0; i < 10; i++) {
-    var perc = result[i] / total;
-    var height = Math.round(perc * total_height);
+    var perc = result[i] / max;
+    var height = Math.round(perc * max_height);
     if (height < 2) {
       height = 2;
     }
@@ -109,3 +115,5 @@ function recaptchaCallback(response) {
     submit();
   }
 }
+
+process('[0,3,4,1,0,2,0,0,0,0]');
